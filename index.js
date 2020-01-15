@@ -119,6 +119,30 @@ class LinkedList {
       this.head = prev;
     }
   }
+  //reverse from kth node
+  reversePartialFromKthNode() {
+    let k = 5;
+    let count = 0;
+    let cur = this.head;
+    if (cur.next == null) {
+      return this.head;
+    } else {
+      let prev = null;
+      let nodeAfterStop = null;
+      while (cur != null && count < k) {
+        let next = cur.next;
+        nodeAfterStop = next;
+        cur.next = prev;
+        prev = cur;
+        cur = next;
+        count++;
+      }
+      //this for connecting first to the node from where we reversed
+      this.head.next = nodeAfterStop;
+      //this for poiniting head because prev always be the first node after reverse
+      this.head = prev;
+    }
+  }
 }
 
 const linkedList = new LinkedList();
@@ -135,6 +159,7 @@ console.log(linkedList.display());
 linkedList.reverse();
 console.log("after reverse======>");
 console.log(linkedList.display());
-linkedList.reversePartial();
-console.log("after partial=====>");
+//linkedList.reversePartial();
+linkedList.reversePartialFromKthNode();
+console.log("after partial from kth node=====>");
 console.log(linkedList.display());
