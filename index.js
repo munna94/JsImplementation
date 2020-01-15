@@ -1,3 +1,9 @@
+let express = require("express"); 
+let bodyParser = require("body-parser"); 
+  //initialize express app 
+  let app = express(); 
+
+//start code from here....
 //create node
 class Node{
   constructor(val){
@@ -72,8 +78,49 @@ insert(index,val){
   }
 }
 
+//reverse 
+reverse(){
+  if(this.head==null){
+    console.log("no node for reverse..");
+  }else if(this.head.next==null){
+    console.log("only one node")
+    return this.head;
+  }else{
+    let cur=this.head;
+    let prev=null;
+    while(cur!=null){
+      let next=cur.next;
+      cur.next=prev;
+      prev=cur;
+      cur=next;
+    }
+    this.head=prev;
+  }
+}
 
-
+//reverse partial linked list
+reversePartial(){
+  let k=2101;
+  let cur=this.head;
+  if(cur.next==null){
+    return this.head;
+  }else{
+    let prev=null;
+    let nodeAfterStop = null ;
+    while(cur!=null){
+      let next =cur.next;
+      nodeAfterStop = next ;
+      cur.next=prev;
+      prev=cur;
+      cur=next;
+      if(prev.value==k) break;
+    }
+    //this for connecting first to the node from where we reversed
+    this.head.next = nodeAfterStop;
+    //this for poiniting head because prev always be the first node after reverse
+    this.head=prev; 
+  }
+}
 }
 
 
@@ -85,4 +132,16 @@ linkedList.prepend(100);
 linkedList.prepend(2000);
 linkedList.append(9);
 linkedList.insert(1,2101)
+console.log("before reverse======>")
+
 console.log(linkedList.display())
+linkedList.reverse()
+console.log("after reverse======>")
+console.log(linkedList.display())
+linkedList.reversePartial();
+console.log("after partial=====>");
+console.log(linkedList.display())
+
+
+
+
