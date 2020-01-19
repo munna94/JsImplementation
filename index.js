@@ -143,6 +143,30 @@ class LinkedList {
       this.head = prev;
     }
   }
+
+  //reverse kth node pair wise
+reversePair(head,k){
+  let cur=head;
+  let next=null;
+  let prev=null;
+  let count=0;
+  while (cur != null && count <k){
+    next=cur.next;
+    cur.next=prev;
+    prev=cur;
+    cur=next;
+    count=count+1;
+  }
+  if(next !=null){
+    head.next=this.reversePair(next,k);
+  }
+  return prev;
+
+}
+initializeHeadAfterReverse(ob){
+  this.head=ob;
+}
+
 }
 
 const linkedList = new LinkedList();
@@ -163,3 +187,9 @@ console.log(linkedList.display());
 linkedList.reversePartialFromKthNode();
 console.log("after partial from kth node=====>");
 console.log(linkedList.display());
+//reverse pair wise and return head
+let headOb=linkedList.reversePair(linkedList.head,2);
+//finally intialize head to return head
+linkedList.initializeHeadAfterReverse(headOb)
+console.log("after pairwise reverse =====>");
+console.log(linkedList.display())
